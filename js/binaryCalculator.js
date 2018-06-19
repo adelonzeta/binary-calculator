@@ -1,8 +1,13 @@
 const BinaryCalCulator = {
-  data: {
-    result: ''
+  data() {
+    return {
+      result: ''
+    }
   },
   init() {
+    for (state in this.data()) {
+      this[state] = this.data()[state]
+    }
     this.createElements()
     this.cacheDOM()
     this.bindEvents()
@@ -42,7 +47,7 @@ const BinaryCalCulator = {
     this.btnDiv.addEventListener('click', this.displayOperation.bind(this, '/'))
   },
   render() {
-    this.res.innerHTML = this.data.result
+    this.res.innerHTML = this.result
   },
   addElement(tagName, id, parent, text) {
     let element = document.createElement(tagName)
@@ -52,25 +57,25 @@ const BinaryCalCulator = {
     else document.body.append(element)
   },
   clear() {
-    this.data.result = ''
+    this.result = ''
     this.render()
   },
   displayBinary (binary) {
-    this.data.result += binary
+    this.result += binary
     this.render()
   },
   displayOperation(operator) {
-    let hasOperation = this.data.result.match(/[\+\-\*\/]/)
-    if (this.data.result !== '' && !hasOperation) {
-      this.data.result += operator
+    let hasOperation = this.result.match(/[\+\-\*\/]/)
+    if (this.result !== '' && !hasOperation) {
+      this.result += operator
       this.render()
     }
   },
   calculate() {
-    let hasOperation = this.data.result.match(/[\+\-\*\/]/)
-    if (this.data.result !== '' && hasOperation) {
-      let numbers = this.data.result.split(/[\+\-\*\/]/)
-      let operator = this.data.result.match(/[\+\-\*\/]/)[0]
+    let hasOperation = this.result.match(/[\+\-\*\/]/)
+    if (this.result !== '' && hasOperation) {
+      let numbers = this.result.split(/[\+\-\*\/]/)
+      let operator = this.result.match(/[\+\-\*\/]/)[0]
       let digits = numbers.map(number => parseInt(number, 2))
       let equals
       switch (operator) {
@@ -87,7 +92,7 @@ const BinaryCalCulator = {
           equals = digits[0] / digits[1]
           break;
       }
-      this.data.result = equals.toString(2)
+      this.result = equals.toString(2)
       this.render()
     }
   }
