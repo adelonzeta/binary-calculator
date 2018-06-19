@@ -5,8 +5,8 @@ const BinaryCalCulator = {
     }
   },
   init() {
-    for (state in this.data()) {
-      this[state] = this.data()[state]
+    for (data in this.data()) {
+      this[data] = this.data()[data]
     }
     this.createElements()
     this.cacheDOM()
